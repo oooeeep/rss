@@ -5,4 +5,7 @@ RUN set -ex \
     && pip --no-cache-dir install https://raw.githubusercontent.com/CM44/cdn/master/add/rss.zip
 
 ENV KEY key
-CMD /usr/bin/ssserver -p 8080 -k $KEY -m chacha20 -o http_simple_compatible -P auth_sha1_compatible
+ENV WORKER 1
+ENV PORT 8080
+EXPOSE $PORT
+CMD /usr/bin/ssserver -q -p $PORT -k $KEY -m chacha20 -o http_simple_compatible -P auth_sha1_compatible --workers $WORKER
